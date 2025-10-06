@@ -1,7 +1,14 @@
 services:
   n8n:
-    # 1. Constrói a imagem do n8n com Chrome usando o Dockerfile.
-    build: .
+    # Use a imagem correta que já inclui o puppeteer
+    image: 'n8nio/n8n:1-bullseye-puppeteer'
+    
+    # A LINHA ABAIXO É A ADIÇÃO DA SOLUÇÃO AVANÇADA
+    cap_add:
+      - SYS_ADMIN
+      
+    ports:
+      - '5678:5678'
     environment:
       - SERVICE_FQDN_N8N_5678
       - 'N8N_EDITOR_BASE_URL=${SERVICE_FQDN_N8N}'
