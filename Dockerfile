@@ -4,26 +4,31 @@ FROM docker.n8n.io/n8nio/n8n:latest
 # Pede permissão de administrador para instalar coisas
 USER root
 
-# Roda os comandos de instalação CORRETOS para Alpine Linux (apk),
-# incluindo o Chromium e todas as suas dependências ("peças")
+# A LISTA DE PEÇAS FINAL E CORRIGIDA para o sistema Alpine
 RUN apk update && \
     apk add --no-cache \
     chromium \
-    udev \
-    ttf-freefont \
+    nss \
     freetype \
     harfbuzz \
-    nss \
-    dbus-libs \
-    expat-libs \
+    ca-certificates \
+    ttf-freefont \
+    gcompat \
+    libx11 \
     libxcomposite \
     libxrandr \
     libxscrnsaver \
     libxtst \
     alsa-lib \
-    at-spi2-atk \
+    at-spi2-core \
+    atk \
+    cairo \
+    cups \
+    dbus \
+    expat \
     gdk-pixbuf \
-    gtk+3.0
+    gtk+3.0 \
+    pango
 
 # Diz ao Puppeteer onde encontrar o Chromium que acabamos de instalar
 ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
