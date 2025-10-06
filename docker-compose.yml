@@ -1,6 +1,6 @@
 services:
   n8n:
-    # A MUDANÇA CRUCIAL: Diz para CONSTRUIR a imagem usando o Dockerfile
+    # 1. Constrói a imagem do n8n com Chrome usando o Dockerfile.
     build: .
     environment:
       - SERVICE_FQDN_N8N_5678

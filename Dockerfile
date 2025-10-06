@@ -4,7 +4,7 @@ FROM docker.n8n.io/n8nio/n8n:latest
 # Pede permissão de administrador
 USER root
 
-# A LISTA DE PEÇAS MÍNIMA E ESSENCIAL para o Chromium rodar em modo headless no Alpine
+# A LISTA DE PEÇAS MÍNIMA E ESSENCIAL para o Chromium rodar
 RUN apk update && \
     apk add --no-cache \
     chromium \
