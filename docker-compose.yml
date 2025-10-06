@@ -1,14 +1,7 @@
 services:
   n8n:
-    # Use a imagem correta que já inclui o puppeteer
-    image: 'n8nio/n8n:1-bullseye-puppeteer'
-    
-    # A LINHA ABAIXO É A ADIÇÃO DA SOLUÇÃO AVANÇADA
-    cap_add:
-      - SYS_ADMIN
-      
-    ports:
-      - '5678:5678'
+    # Diz à Coolify para construir a imagem usando o Dockerfile acima
+    build: .
     environment:
       - SERVICE_FQDN_N8N_5678
       - 'N8N_EDITOR_BASE_URL=${SERVICE_FQDN_N8N}'
@@ -24,6 +17,7 @@ services:
       - DB_POSTGRESDB_SCHEMA=public
       - DB_POSTGRESDB_PASSWORD=$SERVICE_PASSWORD_POSTGRES
     volumes:
+      # Linha crucial: Conecta a pasta de dados do n8n a um "HD externo" permanente
       - 'n8n-data:/home/node/.n8n'
     depends_on:
       postgresql:
@@ -31,6 +25,7 @@ services:
   postgresql:
     image: 'postgres:16-alpine'
     volumes:
+      # Linha crucial: Conecta a pasta de dados do banco de dados a um "HD externo" permanente
       - 'postgresql-data:/var/lib/postgresql/data'
     environment:
       - POSTGRES_USER=$SERVICE_USER_POSTGRES

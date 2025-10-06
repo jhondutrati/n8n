@@ -1,4 +1,4 @@
-# Começa com a imagem base :latest
+# Começa com a imagem base :latest, que sabemos que funciona no seu ambiente
 FROM docker.n8n.io/n8nio/n8n:latest
 
 # Pede permissão de administrador
