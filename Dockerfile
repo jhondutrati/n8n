@@ -1,10 +1,10 @@
-# Começa com a imagem base :latest, que sabemos que funciona no seu ambiente
+# Começa com a imagem base :latest
 FROM docker.n8n.io/n8nio/n8n:latest
 
-# Pede permissão de administrador para instalar coisas
+# Pede permissão de administrador
 USER root
 
-# A LISTA DE PEÇAS FINAL E CORRIGIDA para o sistema Alpine
+# A LISTA DE PEÇAS MÍNIMA E ESSENCIAL para o Chromium rodar em modo headless no Alpine
 RUN apk update && \
     apk add --no-cache \
     chromium \
@@ -13,24 +13,9 @@ RUN apk update && \
     harfbuzz \
     ca-certificates \
     ttf-freefont \
-    gcompat \
-    libx11 \
-    libxcomposite \
-    libxrandr \
-    libxscrnsaver \
-    libxtst \
-    alsa-lib \
-    at-spi2-core \
-    atk \
-    cairo \
-    cups \
-    dbus \
-    expat \
-    gdk-pixbuf \
-    gtk+3.0 \
-    pango
+    gcompat
 
-# Diz ao Puppeteer onde encontrar o Chromium que acabamos de instalar
+# Diz ao Puppeteer onde encontrar o Chromium
 ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
 
 # Devolve para o usuário normal por segurança
