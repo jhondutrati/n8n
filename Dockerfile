@@ -1,25 +1,32 @@
-# Passo 1: Começa com a imagem base :latest, que é baseada em Alpine Linux
+# Começa com a imagem base :latest, que sabemos que funciona no seu ambiente
 FROM docker.n8n.io/n8nio/n8n:latest
 
-# Passo 2: Pede permissão de administrador para instalar coisas
+# Pede permissão de administrador para instalar coisas
 USER root
 
-# Passo 3: Roda os comandos de instalação CORRETOS para Alpine Linux (apk)
-# Em vez de Google Chrome, vamos instalar o Chromium, que é a versão de código aberto e compatível.
+# Roda os comandos de instalação CORRETOS para Alpine Linux (apk),
+# incluindo o Chromium e todas as suas dependências ("peças")
 RUN apk update && \
     apk add --no-cache \
     chromium \
-    nss \
+    udev \
+    ttf-freefont \
     freetype \
     harfbuzz \
-    ca-certificates \
-    ttf-freefont \
-    json-glib
+    nss \
+    dbus-libs \
+    expat-libs \
+    libxcomposite \
+    libxrandr \
+    libxscrnsaver \
+    libxtst \
+    alsa-lib \
+    at-spi2-atk \
+    gdk-pixbuf \
+    gtk+3.0
 
-# Passo 4: Diz ao Puppeteer onde encontrar o Chromium que acabamos de instalar
+# Diz ao Puppeteer onde encontrar o Chromium que acabamos de instalar
 ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
 
-# Passo 5: Devolve para o usuário normal por segurança
+# Devolve para o usuário normal por segurança
 USER node
-
-#final
